@@ -1,10 +1,8 @@
 import express from "express";
 import q2m from "query-to-mongo";
-
 import { checkBlogSchema, getbadRequest } from "./validator.js";
 import blogModel from "./model.js";
 import commentModel from "../comments/model.js";
-import { body } from "express-validator";
 
 const blogRouter = express.Router();
 
@@ -33,7 +31,9 @@ blogRouter.get("/:id", async (request, response, next) => {
   try {
     const id = request.params.id;
 
-    const blog = await blogModel.findById(id);
+    const blog = await blogModel.findById(id).populate({
+      path: "comments",
+    });
     response.status(200).send(blog);
   } catch (error) {
     next(error);

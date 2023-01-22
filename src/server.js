@@ -1,6 +1,7 @@
 import express from "express";
 import authorsRouter from "./api/users/index.js";
 import blogRouter from "./api/blogs/index.js";
+import commentRouter from "./api/comments/comment.js";
 import filesRouter from "./api/files/index.js";
 import listEndpoint from "list-endpoints-express";
 import listEndpoints from "express-list-endpoints";
@@ -21,6 +22,7 @@ server.use(cors());
 server.use("/authors", authorsRouter);
 server.use("/blogs", blogRouter);
 server.use("/cover", filesRouter);
+server.use("/comments", commentRouter);
 
 server.use(badRequestHandler);
 server.use(unauthorizedHandler);
